@@ -34,8 +34,8 @@ const getToCustomers = async (req, res) => {
 const getFromCustomers = async (req, res) => {
   try {
     const { id1, id2 } = req.params;
-    const fromCustomer = await Customer.findById(id1);
-    const toCustomer = await Customer.findById(id2);
+    const toCustomer = await Customer.findById(id1);
+    const fromCustomer = await Customer.findById(id2);
     res.status(200).json({ fromCustomer, toCustomer });
   } catch (e) {
     res.status(404).json({ message: e.message });
@@ -48,8 +48,8 @@ const transferMoney = async (req, res) => {
   try {
     const { id1, id2 } = req.params;
     const sendAmount = parseInt(req.body.sendAmount);
-    const fromCustomer = await Customer.findById(id1);
-    const toCustomer = await Customer.findById(id2);
+    const toCustomer = await Customer.findById(id1);
+    const fromCustomer = await Customer.findById(id2);
     // console.log(fromCustomer.balance);
     // console.log(toCustomer.balance);
     // console.log(sendAmount);
@@ -59,13 +59,13 @@ const transferMoney = async (req, res) => {
         let tobalanceNew = parseInt(toCustomer.balance + sendAmount);
         await Customer.findByIdAndUpdate(
           id1,
-          { balance: frombalanceNew },
-          { runValidators: true, new: true }
+          { balance: tobalanceNew },
+          { new: true }
         );
         await Customer.findByIdAndUpdate(
           id2,
-          { balance: tobalanceNew },
-          { new: true }
+          { balance: frombalanceNew },
+          { runValidators: true, new: true }
         );
         let newTransaction = new Transaction();
         newTransaction.fromName = fromCustomer.name;
@@ -80,7 +80,7 @@ const transferMoney = async (req, res) => {
       res.status(200).json({ message: "Insufficient Balance" });
     }
   } catch (e) {
-    res.status(404).json({ message: e.message, er: "error" });
+    res.status(404).json({ message: e.message });
   }
 };
 

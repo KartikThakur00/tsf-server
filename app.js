@@ -6,15 +6,15 @@ const dotenv = require("dotenv");
 const customerRoutes = require("./routes/customerRoutes.js");
 const historyRoutes = require("./routes/historyRoutes.js");
 
-// import Customer from './models/Customer.js';
-// import data from './data.json' assert {type :"json"}
+// const  Customer= require('./models/Customer.js')
+// const data=require('./data.json')
 
 dotenv.config();
 
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3000"
+  origin: process.env.APP_URL
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,5 +38,6 @@ mongoose
   .then(() => console.log("Database Connected"))
   .catch((error) => console.log(error.message));
 
+  // Customer.insertMany(data)
 
 module.exports = app;

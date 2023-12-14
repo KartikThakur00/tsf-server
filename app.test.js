@@ -14,7 +14,7 @@ describe("Test the root path", () => {
   });
 });
 
-describe("Test the /customer path", () => {
+describe("Test the /customers path", () => {
   test("It should response the GET method", (done) => {
     request(app)
       .get("/customers")
@@ -25,7 +25,7 @@ describe("Test the /customer path", () => {
   });
 });
 
-describe("Test the /customer/:id path", () => {
+describe("Test the /customers/:id path", () => {
   test("It should response the GET method", (done) => {
     request(app)
       .get("/customers/60f1b0b9e6b3a3b4e8f3b3a0")
@@ -36,7 +36,7 @@ describe("Test the /customer/:id path", () => {
   });
 });
 
-describe("Test the /customer/:id1/:id2 path", () => {
+describe("Test the /customers/:id1/:id2 path", () => {
   test("It should response the GET method", (done) => {
     request(app)
       .get("/customers/656eea9483200b2cb724453e/656eea9483200b2cb7244544")
